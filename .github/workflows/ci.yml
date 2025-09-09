@@ -27,3 +27,11 @@ jobs:
       - name: pushing in to docker repo
         run: |
           docker push samba1232/img
+  deploy:
+    runs-on: [ip-172-31-19-235]
+    needs: test
+    steps:
+      - name: deploying docker container
+        run: |
+          docker pull samba1232/img
+          docker run -d --name myapp -p 80:80 samba1232/img
