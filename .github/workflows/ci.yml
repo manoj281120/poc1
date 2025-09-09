@@ -21,3 +21,6 @@ jobs:
       - name: building docker image
         run: |
            docker build -t img .
+      - name: pushing docker image to docker hub
+        run: |
+           docker login -u samba1232 
