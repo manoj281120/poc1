@@ -28,7 +28,7 @@ jobs:
         run: |
           docker push samba1232/img
   deploy:
-    runs-on: [self-hosted,ip-172-31-19-235]
+    runs-on: [aws-ec2]
     needs: test
     steps:
       - name: deploying docker container
