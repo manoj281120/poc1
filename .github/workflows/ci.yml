@@ -31,13 +31,10 @@ jobs:
     runs-on: [aws-ec2]
     needs: test
     steps:
-      - name: installing docker
-        run: |
-           sudo apt-get update
-           sudo apt-get install -y docker.io
-           sudo systemctl start docker
-           sudo usermod -aG docker $USER
+      - name: pulling docker image
+        run: docker pull samba1232/img
       - name: deploying docker container
         run: |
-          docker pull samba1232/img
+          docker stop myapp || true
+          docker rm myapp || true
           docker run -d --name myapp -p 80:80 samba1232/img
