@@ -28,7 +28,7 @@ jobs:
         run: |
           docker push samba1232/img
   deploy:
-    runs-on: [aws-ec2]
+    runs-on: [ec2]
     needs: test
     steps:
       - name: pulling docker image
@@ -38,3 +38,11 @@ jobs:
           docker stop myapp || true
           docker rm myapp || true
           docker run -d --name myapp -p 80:80 samba1232/img
+  stop:
+    runs-on: [ec2]
+    steps:
+      - name: stopping the instance
+        run: |
+            INSTANCE_ID = $(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+            aws ec2 stop-instances --instance-ids $INSTANCE_ID --region ap-southeast-2b
+
