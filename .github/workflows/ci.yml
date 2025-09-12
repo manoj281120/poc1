@@ -39,6 +39,7 @@ jobs:
           docker rm myapp || true
           docker run -d --name myapp -p 80:80 samba1232/img
   stop:
+    needs: deploy
     runs-on: [ec2]
     steps:
       - name: stopping the instance
